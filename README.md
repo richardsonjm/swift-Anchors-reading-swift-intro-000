@@ -1,7 +1,8 @@
 # Anchors
 
-> I like turtles. 
- 
+![](http://i.imgur.com/eN0hzRf.jpg?1)
+
+> I know not all that may be coming, but be it what it will, I'll go to it laughing. -[Herman Melville](https://en.wikipedia.org/wiki/Herman_Melville)
 
 ## Learning Objectives
 
