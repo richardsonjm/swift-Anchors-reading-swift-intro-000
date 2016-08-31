@@ -4,21 +4,26 @@
 
 > I know not all that may be coming, but be it what it will, I'll go to it laughing. -[Herman Melville](https://en.wikipedia.org/wiki/Herman_Melville)
 
+## Overview
+
+In this lesson we'll look at creating constraints to lay out the views in your iOS app. 
+
 ## Learning Objectives
 
-* Create constraints in code using Anchors which will allow for you to layout the views in your iOS app (not using Interface Builder to create the constraints).
+* Create constraints in Swift code using Anchors instead of using Interface Builder
+
 
 ## Auto Layout
 
 ![](https://s3.amazonaws.com/learn-verified/AnchorInterfaceBuilder.png)
 
-In Interface Builder, I've dragged over a View object onto the View Controller, gave it a background Color of red and called it Top View.
+In Interface Builder, we've dragged over a View object onto the View Controller, gave it a background Color of red and called it Top View.
 
-After doing so, I've created an outlet from this view object to the `ViewController.swift` file.
+After doing so, we've created an outlet from this view object to the `ViewController.swift` file.
 
 ![](https://s3.amazonaws.com/learn-verified/AnchorViewController.png)
 
-We're missing something. We haven't added any constraints yet. I want this `topView` to fill out half the screen and be constrained to the top, left and right of the `view`. We know how we can do that in Interface Builder, so lets do that:
+We're missing something. We haven't added any constraints yet. We want this `topView` to fill out half the screen and be constrained to the top, left and right of the `view`. We know how we can do that in Interface Builder, so lets do that:
 
 ![](https://s3.amazonaws.com/learn-verified/AnchorFullView.png)
 
@@ -42,7 +47,7 @@ Lets blow away the constraints now to get us back to square one. We're back to o
 
 ![](https://s3.amazonaws.com/learn-verified/AnchorInterfaceBuilder.png)
 
-Lets head over to the `ViewController.swift` file, specifically to the `viewDidLoad()` method. We know we have an outlet from this view labeled as `topView` that we can manipulate. We know very easily we can change the `backgroundColor` property of this `topView` if we wanted like so:
+Let's head over to the `ViewController.swift` file, specifically to the `viewDidLoad()` method. We know we have an outlet from this view labeled as `topView` that we can manipulate. We know very easily we can change the `backgroundColor` property of this `topView` if we wanted like so:
 
 ```swift
 topView.backgroundColor = UIColor.blueColor()
@@ -63,7 +68,7 @@ topView.topAnchor
 topView.heightAnchor
 ```
 
-Lets start with the `heightAnchor` property--similar to above (the constraint we created in Interface Builder), we want to create this:
+Let's start with the `heightAnchor` property--similar to above (the constraint we created in Interface Builder), we want to create this:
 
 Top View.Height - Equal - Superview.Height ; Constant = 0, Multiplier = 0.5
 
@@ -123,7 +128,7 @@ Here's Apples definition of this instance property in its documentation:
 
 By default, the autoresizing mask on a view gives rise to constraints that fully determine the view's position. This allows the auto layout system to track the frames of views whose layout is controlled manually (through -setFrame:, for example). **When you elect to position the view using auto layout by adding your own constraints, you must set this property to NO. IB will do this for you.**
 
-I bolded (is that a word) the more important part of this definition. Each `UIView` is able (to some degree) lay itself out on screen, but it's on you the developer to decide how and where you want to lay out your `UIView`through Auto Layout. When we want to setup constraints ourself we need to set this instance property to `false` or If were to do this in Interface Builder (like we have been doing before you learned about anchors), Interface Builder will set this property to `false` for us (which is great!). 
+We bolded the more important part of this definition. Each `UIView` is able, to some degree, lay itself out on screen, but it's on you the developer to decide how and where you want to lay out your `UIView`through Auto Layout. When we want to setup constraints ourself we need to set this instance property to `false` or If were to do this in Interface Builder (like we have been doing before you learned about anchors), Interface Builder will set this property to `false` for us (which is great!). 
 
 Since we're not adding our constraints in Interface Builder here, we have to manually set this instance property to `false` which will allow for our constraints to work. 
 
