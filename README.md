@@ -50,7 +50,7 @@ Lets blow away the constraints now to get us back to square one. We're back to o
 Let's head over to the `ViewController.swift` file, specifically to the `viewDidLoad()` method. We know we have an outlet from this view labeled as `topView` that we can manipulate. We know very easily we can change the `backgroundColor` property of this `topView` if we wanted like so:
 
 ```swift
-topView.backgroundColor = UIColor.blueColor()
+topView.backgroundColor = UIColor.blue
 ```
 
 If we were to run our app now, it would look like this:
@@ -76,19 +76,19 @@ The types of these four instance properties are `NSLayoutAnchor`. And if we do s
 
 An instance of `NSLayoutAnchor` (which is what these four instance properties are) have these three methods available to them (amongst a few other):
 
-`constraintEqualToAnchor(_:)`  
-`constraintEqualToAnchor(_:constant:)`   
-`constraintEqualToAnchor(_:multiplier:)`
+`constraint(equalTo:)`  
+`constraint(equalTo:, constant:)`   
+`constraint(equalTo: , multiplier:)`
 
 As the first argument to each of these three methods, the argument is of type `NSLayoutAnchor`.  We can then pass in a constant or multiplier value to adjust the constraint some (just like us using the multiplier above with our height constraint to make it half the height of the iPhone).
 
 Lets create our first constraint in code (working with the height first):
 
 ```swift
-topView.heightAnchor.constraintEqualToAnchor(view.heightAnchor, multiplier: 0.5)
+topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
 ```
 
-We're calling on the `constraintEqualToAnchor(_:multiplier:)` method available to any instance of `NSLayoutAnchor`, which is what the `heightAnchor` on the `topView` instance is! Calling on this method, we have to give it what it wants. As its first argument, it wants another instance of `NSLayoutAnchor`--so we give it that! The `view` property is the the white background that we see when we launch the app. So we access the `heightAnchor` instance property on this `view` object and pass that into this method call. As well, we want it to be half the height of this this view object we pass along to this function--so we pass in 0.5
+We're calling on the `constraint(equalTo:, multiplier:)` method available to any instance of `NSLayoutAnchor`, which is what the `heightAnchor` on the `topView` instance is! Calling on this method, we have to give it what it wants. As its first argument, it wants another instance of `NSLayoutAnchor`--so we give it that! The `view` property is the the white background that we see when we launch the app. So we access the `heightAnchor` instance property on this `view` object and pass that into this method call. As well, we want it to be half the height of this this view object we pass along to this function--so we pass in 0.5
 
 This is how you create a constraint in code which is the exact same thing as doing this in Interface Builder:
 
@@ -97,17 +97,17 @@ Top View.Height - Equal - Superview.Height ; Constant = 0, Multiplier = 0.5
 There's one thing we need to add to this though. If you dig into the documentation, doing this returns back to us an Inactive constraint. It means we need to Activate it! How do we do that.. you do that like this:
 
 ```swift
-topView.heightAnchor.constraintEqualToAnchor(view.heightAnchor, multiplier: 0.5).active = true
+topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5).isActive = true
 ```
 
-It's the same line of code with one addition. We're accessing the return value of this functions `.active` instance property (which is of type `Bool`) and assigning it the value `true` which will _activate_ this particular constraint. So.. wait, what? Return value of this function? So `constraintEqualToAnchor(_:multiplier:)` and those other functions above return back something? Yes. It returns back to us a value of type `NSLayoutConstraint!`. Like any other call to a function we make, we can store it in some variable or constant, or do nothing with it. Here, we're not storing it in some variable or constant but we are _doing_ something with it, we're accessing its `.active` instance property setting it to `true` all in one line of code.
+It's the same line of code with one addition. We're accessing the return value of this functions `.isActive` instance property (which is of type `Bool`) and assigning it the value `true` which will _activate_ this particular constraint. So.. wait, what? Return value of this function? So `constraint(equalTo:, multiplier:)` and those other functions above return back something? Yes. It returns back to us a value of type `NSLayoutConstraint!`. Like any other call to a function we make, we can store it in some variable or constant, or do nothing with it. Here, we're not storing it in some variable or constant but we are _doing_ something with it, we're accessing its `.isActive` instance property setting it to `true` all in one line of code.
 
 Lets add our other constraints which are much easier compared to the height:
 
 ```swift
-topView.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
-topView.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
-topView.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
+topView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+topView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 ```
 
 After doing so, lets run our app:
@@ -137,14 +137,14 @@ Here's what our `viewDidLoad()` function looks like at the end of the day:
 ```swift
     override func viewDidLoad() {
         super.viewDidLoad()
-        topView.backgroundColor = UIColor.blueColor()
+        topView.backgroundColor = UIColor.blue
         
         topView.translatesAutoresizingMaskIntoConstraints = false
         
-        topView.heightAnchor.constraintEqualToAnchor(view.heightAnchor, multiplier: 0.5).active = true
-        topView.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
-        topView.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
-        topView.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
+        topView.heightAnchor.constraint(equalTo:view.heightAnchor, multiplier: 0.5).isactive = true
+        topView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        topView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     }
 ```
 
